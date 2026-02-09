@@ -157,7 +157,7 @@
                 <div class="product-card">
                     <div class="product-image" style="background-image: url(images/bgY.jpg);">
                         <img src="images/products/اليسير_البيج-removebg-preview.png" alt="قميص اليسير" 
-                             class="product-real-image" style="width: 75%;" 
+                             class="product-real-image" style="width: 70%;" 
                              data-product="clothing-shirt" 
                              id="shirt-main-image">
                     </div>
@@ -180,26 +180,26 @@
                                 </select>
                             </div>
                             
-                            <!-- زر فتح قائمة الألوان -->
                             <div class="option-group">
-                                <label class="option-label">اللون:</label>
-                                <div class="color-picker-container">
-                                    <button type="button" 
-                                            class="color-picker-btn"
-                                            id="open-color-picker-btn">
-                                        <span class="color-picker-text">اختر اللون</span>
-                                        <span class="color-picker-icon">▼</span>
-                                    </button>
-                                    
-                                    <!-- معاينة اللون المختار -->
-                                    <div class="selected-color-preview" id="selected-color-preview" style="display: none;">
-                                        <div class="selected-color-circle">
-                                            <img id="selected-color-thumb" src="" alt="اللون المختار">
-                                        </div>
-                                        <span id="selected-color-name">-</span>
-                                    </div>
-                                </div>
-                            </div>
+    <label class="option-label">اللون:</label>
+    <div class="color-picker-container">
+        <!-- زر فتح القائمة -->
+        <button type="button" 
+                class="color-picker-btn"
+                id="open-color-picker-btn">
+            <span class="color-picker-text">اختر اللون</span>
+            <span class="color-picker-icon">▼</span>
+        </button>
+        
+        <!-- معاينة اللون المختار (ستظهر أسفل الزر) -->
+        <div class="selected-color-preview-vertical" id="selected-color-preview" style="display: none;">
+            <div class="selected-color-circle">
+                <img id="selected-color-thumb" src="" alt="اللون المختار">
+            </div>
+            <span id="selected-color-name" class="color-name">-</span>
+        </div>
+    </div>
+</div>
                             
                             <!-- القائمة المنبثقة للألوان -->
                             <div class="color-picker-popup" id="color-picker-popup">
