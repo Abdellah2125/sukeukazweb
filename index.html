@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="سوق عُكاظ - منتجات طبيعية أصيلة وملابس إسلامية راقية">
+    <meta name="keywords" content="عسل طبيعي، زيوت طبيعية، ملابس إسلامية">
+    <title>سوق عُكاظ - منتجات طبيعية وألبسة شرعية</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+     <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="logo">
+                        <img src="images/logo.png" alt="سوق عُكاظ">
+                    </div>
+                </div>
+                <nav>
+                    <a href="#home" class="nav-link active">الرئيسية</a>
+                    <a href="#products" class="nav-link">المنتجات</a>
+                    <a href="#cart" class="nav-link">
+                        <span class="cart-badge" id="cartCount">0</span>
+                        السلة
+                    </a>
+                    <a href="#order" class="nav-link">إتمام الطلب</a>
+                    <!-- زر جديد يقود إلى وسائل التواصل في الفوتر -->
+                    <a href="#footer-social" class="nav-link">تواصل معنا</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>أهلاً بكم في سوق عُكاظ</h1>
+                <p>منتجات طبيعية أصيلة وملابس إسلامية راقية</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+<section id="products" class="products-section">
+    <div class="container">
+        <h2 class="section-title">منتجاتنا المميزة</h2>
+
+        <!-- قسم العسل -->
+        <div class="category-container">
+            <h2 class="category-title">العسل الطبيعي</h2>
+            <div class="products-grid">
+                
+                <!-- عسل السدر -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/products/honeySidr.png" alt="عسل السدر المحلي" class="product-real-image" style="width: 70%;" >
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">عسل السدر المحلي</h4>
+                        <p class="product-description">عسل طبيعي 100% من نبتة السدر المحلية، غني بالفيتامينات والمعادن</p>
+                        
+                        <div class="product-options">
+                            <div class="option-group">
+                                <label class="option-label">الحجم:</label>
+                                <select class="size-select" data-product="honey-sidar">
+                                    <option value="0">250 غرام - 1,500 دج</option>
+                                    <option value="1">500 غرام - 3,000 دج</option>
+                                    <option value="2">1 كيلو غرام - 6,000 دج</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <label class="option-label">الكمية:</label>
+                                <input type="number" class="quantity-input" value="1" min="1" max="99" data-product="honey-sidar">
+                            </div>
+                        </div>
+                        
+                        <div class="price-section">
+                            <div class="price" data-product="honey-sidar">
+                                <span class="price-number">1,500</span>
+                                <span class="currency">دج</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart-btn" data-product="honey-sidar" data-type="simple">
+                            إضافة إلى السلة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الزيوت -->
+        <div class="category-container">
+            <h2 class="category-title">الزيوت الطبيعية</h2>
+            <div class="products-grid">
+                
+                <!-- زيت الزيتون -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/products/oil1.jpg" alt="زيت الزيتون البكر" class="product-real-image">
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">زيت الزيتون البكر</h4>
+                        <p class="product-description">زيت زيتون بكر ممتاز، عصرة أولى على البارد</p>
+                        
+                        <div class="product-options">
+                            <div class="option-group">
+                                <label class="option-label">الحجم:</label>
+                                <select class="size-select" data-product="oil-olive">
+                                    <option value="0">1 لتر - 1,200 دج</option>
+                                    <option value="1">5 لتر - 5,500 دج</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <label class="option-label">الكمية:</label>
+                                <input type="number" class="quantity-input" value="1" min="1" max="99" data-product="oil-olive">
+                            </div>
+                        </div>
+                        
+                        <div class="price-section">
+                            <div class="price" data-product="oil-olive">
+                                <span class="price-number">1,200</span>
+                                <span class="currency">دج</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart-btn" data-product="oil-olive" data-type="simple">
+                            إضافة إلى السلة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الملابس -->
+        <div class="category-container">
+            <h2 class="category-title">الألبسة الشرعية</h2>
+            <div class="products-grid">
+                
+                <!-- قميص اليسير -->
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url(images/bgY.jpg);">
+                        <img src="images/products/اليسير_البيج-removebg-preview.png" alt="قميص اليسير" 
+                             class="product-real-image" style="width: 75%;" 
+                             data-product="clothing-shirt" 
+                             id="shirt-main-image">
+                    </div>
+                    
+                    <div class="product-info">
+                        <h4 class="product-name">قميص اليسير</h4>
+                        <p class="product-description">قميص قطني فاخر بتصميم عصري وأنيق</p>
+                        
+                        <div class="product-options">
+                            <!-- اختيار المقاس -->
+                            <div class="option-group">
+                                <label class="option-label">المقاس:</label>
+                                <select class="clothing-size-select" 
+                                        data-product="clothing-shirt" 
+                                        id="shirt-size-select">
+                                    <option value="52">52</option>
+                                    <option value="54" selected>54</option>
+                                    <option value="56">56</option>
+                                    <option value="58">58</option>
+                                </select>
+                            </div>
+                            
+                            <!-- زر فتح قائمة الألوان -->
+                            <div class="option-group">
+                                <label class="option-label">اللون:</label>
+                                <div class="color-picker-container">
+                                    <button type="button" 
+                                            class="color-picker-btn"
+                                            id="open-color-picker-btn">
+                                        <span class="color-picker-text">اختر اللون</span>
+                                        <span class="color-picker-icon">▼</span>
+                                    </button>
+                                    
+                                    <!-- معاينة اللون المختار -->
+                                    <div class="selected-color-preview" id="selected-color-preview" style="display: none;">
+                                        <div class="selected-color-circle">
+                                            <img id="selected-color-thumb" src="" alt="اللون المختار">
+                                        </div>
+                                        <span id="selected-color-name">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- القائمة المنبثقة للألوان -->
+                            <div class="color-picker-popup" id="color-picker-popup">
+                                <div class="color-popup-header">
+                                    <h4>اختر اللون</h4>
+                                    <button type="button" class="close-popup-btn">×</button>
+                                </div>
+                                
+                                <div class="color-popup-body">
+                                    <div class="color-images-grid" id="color-images-grid">
+                                        <!-- سيتم تعبئته بالجافاسكريبت -->
+                                    </div>
+                                    
+                                    <div class="no-colors-message" id="popup-no-colors" style="display: none;">
+                                        <p>⚠️ لا توجد ألوان متاحة لهذا المقاس</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="color-popup-footer">
+                                    <button type="button" class="confirm-color-btn">
+                                        تأكيد الاختيار
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- طبقة شفافة لإغلاق القائمة -->
+                            <div class="color-popup-overlay" id="color-popup-overlay"></div>
+                            
+                            <div class="option-group">
+                                <label class="option-label">الكمية:</label>
+                                <input type="number" class="quantity-input" value="1" min="1" max="99" 
+                                       data-product="clothing-shirt" id="shirt-quantity">
+                            </div>
+                        </div>
+                        
+                        <div class="price-section">
+                            <div class="price" data-product="clothing-shirt" id="shirt-price">
+                                <span class="price-number">3,800</span>
+                                <span class="currency">دج</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart-btn" data-product="clothing-shirt" 
+                                data-type="clothing" id="add-shirt-to-cart" disabled>
+                            إضافة إلى السلة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Cart Section -->
+    <section id="cart" class="cart-section">
+        <div class="container">
+            <h2 class="section-title">سلة المشتريات</h2>
+            <div id="cartItemsContainer">
+                <div class="empty-cart">
+                    <div class="empty-cart-icon">🛒</div>
+                    <h3>السلة فارغة</h3>
+                    <p>لم تقم بإضافة أي منتجات بعد</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section id="order" class="order-form-section">
+        <div class="container">
+            <h2 class="section-title">معلومات الطلب</h2>
+            <form id="orderForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="firstName">الاسم الأول *</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="lastName">اللقب *</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="phone">رقم الهاتف *</label>
+                        <input type="tel" id="phone" required placeholder="0123456789">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="address">العنوان الكامل *</label>
+                        <input type="text" id="address" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="notes">ملاحظات إضافية (اختياري)</label>
+                    <textarea id="notes" placeholder="أي تفاصيل أو ملاحظات خاصة بالطلب..."></textarea>
+                </div>
+                <button type="submit" class="submit-order-btn">إرسال الطلب عبر واتساب</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- قسم معلومات المتجر -->
+                <div class="footer-section">
+                    <h3 class="footer-title">سوق عُكاظ</h3>
+                    <p class="footer-description">
+                        منتجات طبيعية وأصيلة بجودة عالية<br>
+                     نقدم أفضل المنتجات الطبيعية وأفخم الألبسة الشرعية  
+                    </p>
+                </div>
+
+                <!-- قسم روابط سريعة -->
+                <div class="footer-section">
+                    <h3 class="footer-title">روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#products">المنتجات</a></li>
+                        <li><a href="#cart">سلة المشتريات</a></li>
+                        <li><a href="#order">إتمام الطلب</a></li>
+                    </ul>
+                </div>
+
+                <!-- قسم وسائل التواصل الاجتماعي -->
+                <div class="footer-section" id="footer-social">
+                    <h3 class="footer-title">تابعنا على</h3>
+                    <div class="social-media">
+                        <a href="https://www.facebook.com/profile.php?id=61576940163691" class="social-link facebook" target="_blank" aria-label="فيسبوك">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>فيسبوك</span>
+                        </a>
+                        
+                        <a href="https://www.instagram.com/suk_eukaz?igsh=OWhwa3VhOGdmeG95" class="social-link instagram" target="_blank" aria-label="انستغرام">
+                            <i class="fab fa-instagram"></i>
+                            <span>انستغرام</span>
+                        </a>
+                        
+                        <a href="https://wa.me/213779724499" class="social-link whatsapp" target="_blank" aria-label="واتساب">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>واتساب</span>
+                        </a>
+                        
+                        <a href="https://t.me/suk_eukaz" class="social-link telegram" target="_blank" aria-label="تلجرام">
+                            <i class="fab fa-telegram"></i>
+                            <span>تلجرام</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- حقوق النشر -->
+            <div class="copyright">
+                <p>© سوق عُكاظ - جميع الحقوق محفوظة 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
