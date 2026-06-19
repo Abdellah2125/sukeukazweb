@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="سوق عُكاظ - منتجات طبيعية أصيلة وملابس إسلامية راقية">
-    <meta name="keywords" content="عسل طبيعي، زيوت طبيعية، ملابس إسلامية">
-    <title>سوق عُكاظ - منتجات طبيعية وألبسة شرعية</title>
+    <meta name="description" content="سوق عُكاظ - منتجات طبيعية أصيلة">
+    <meta name="keywords" content="عسل طبيعي، زيوت طبيعية">
+    <title>سوق عُكاظ - منتجات طبيعية</title>
     
+    <!-- Open Graph -->
+    <meta property="og:title" content="سوق عُكاظ - منتجات طبيعية">
+    <meta property="og:description" content="عسل طبيعي وزيت زيتون ومنتجات أصيلة">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sukeukaz.com">
+    <meta property="og:image" content="images/logo.png">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +29,7 @@
 <body>
     <!-- Header -->
      <header>
+        <div class="header-strip"></div>
         <div class="container">
             <div class="header-content">
                 <div class="logo-container">
@@ -48,8 +56,13 @@
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>أهلاً بكم في سوق عُكاظ</h1>
-                <p>منتجات طبيعية أصيلة وملابس إسلامية راقية</p>
+                <div class="hero-badge">متجر طبيعي موثوق</div>
+                <h1>أهلاً بكم في <span class="hero-highlight">سوق عُكاظ</span></h1>
+                <p>منتجات طبيعية أصيلة</p>
+                <a href="#products" class="hero-cta">
+                    <span>تصفح المنتجات</span>
+                    <i class="fas fa-arrow-down"></i>
+                </a>
             </div>
         </div>
     </section>
@@ -57,7 +70,7 @@
     <!-- Products Section -->
 <section id="products" class="products-section">
     <div class="container">
-        <h2 class="section-title">منتجاتنا المميزة</h2>
+        <h2 class="section-title"><i class="fas fa-store"></i> منتجاتنا المميزة</h2>
 
         <!-- قسم العسل -->
         <div class="category-container">
@@ -67,7 +80,7 @@
                 <!-- عسل السدر -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="images/products/honeySidr.png" alt="عسل السدر المحلي" class="product-real-image" style="width: 70%;" >
+                        <img src="images/products/honeySidr.png" alt="عسل السدر المحلي" class="product-real-image" loading="lazy" style="width: 70%;" >
                     </div>
                     <div class="product-info">
                         <h4 class="product-name">عسل السدر المحلي</h4>
@@ -112,7 +125,7 @@
                 <!-- زيت الزيتون -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="images/products/oil1.jpg" alt="زيت الزيتون البكر" class="product-real-image">
+                        <img src="images/products/oil1.jpg" alt="زيت الزيتون البكر" class="product-real-image" loading="lazy">
                     </div>
                     <div class="product-info">
                         <h4 class="product-name">زيت الزيتون البكر</h4>
@@ -148,12 +161,10 @@
             </div>
         </div>
 
-        <!-- قسم الملابس -->
+        <!-- [مجمّد] قسم الألبسة الشرعية - سيتم إعادته لاحقاً
         <div class="category-container">
             <h2 class="category-title">الألبسة الشرعية</h2>
             <div class="products-grid">
-                
-                <!-- قميص اليسير -->
                 <div class="product-card">
                     <div class="product-image" style="background-image: url(images/bgY.jpg);">
                         <img src="images/products/اليسير_البيج-removebg-preview.png" alt="قميص اليسير" 
@@ -161,13 +172,10 @@
                              data-product="clothing-shirt" 
                              id="shirt-main-image">
                     </div>
-                    
                     <div class="product-info">
                         <h4 class="product-name">قميص اليسير</h4>
                         <p class="product-description">قميص قطني فاخر بتصميم عصري وأنيق</p>
-                        
                         <div class="product-options">
-                            <!-- اختيار المقاس -->
                             <div class="option-group">
                                 <label class="option-label">المقاس:</label>
                                 <select class="clothing-size-select" 
@@ -179,19 +187,15 @@
                                     <option value="58">58</option>
                                 </select>
                             </div>
-                            
                             <div class="option-group">
     <label class="option-label">اللون:</label>
     <div class="color-picker-container">
-        <!-- زر فتح القائمة -->
         <button type="button" 
                 class="color-picker-btn"
                 id="open-color-picker-btn">
             <span class="color-picker-text">اختر اللون</span>
             <span class="color-picker-icon">▼</span>
         </button>
-        
-        <!-- معاينة اللون المختار (ستظهر أسفل الزر) -->
         <div class="selected-color-preview-vertical" id="selected-color-preview" style="display: none;">
             <div class="selected-color-circle">
                 <img id="selected-color-thumb" src="" alt="اللون المختار">
@@ -200,48 +204,36 @@
         </div>
     </div>
 </div>
-                            
-                            <!-- القائمة المنبثقة للألوان -->
                             <div class="color-picker-popup" id="color-picker-popup">
                                 <div class="color-popup-header">
                                     <h4>اختر اللون</h4>
                                     <button type="button" class="close-popup-btn">×</button>
                                 </div>
-                                
                                 <div class="color-popup-body">
-                                    <div class="color-images-grid" id="color-images-grid">
-                                        <!-- سيتم تعبئته بالجافاسكريبت -->
-                                    </div>
-                                    
+                                    <div class="color-images-grid" id="color-images-grid"></div>
                                     <div class="no-colors-message" id="popup-no-colors" style="display: none;">
                                         <p>⚠️ لا توجد ألوان متاحة لهذا المقاس</p>
                                     </div>
                                 </div>
-                                
                                 <div class="color-popup-footer">
                                     <button type="button" class="confirm-color-btn">
                                         تأكيد الاختيار
                                     </button>
                                 </div>
                             </div>
-                            
-                            <!-- طبقة شفافة لإغلاق القائمة -->
                             <div class="color-popup-overlay" id="color-popup-overlay"></div>
-                            
                             <div class="option-group">
                                 <label class="option-label">الكمية:</label>
                                 <input type="number" class="quantity-input" value="1" min="1" max="99" 
                                        data-product="clothing-shirt" id="shirt-quantity">
                             </div>
                         </div>
-                        
                         <div class="price-section">
                             <div class="price" data-product="clothing-shirt" id="shirt-price">
                                 <span class="price-number">3,800</span>
                                 <span class="currency">دج</span>
                             </div>
                         </div>
-                        
                         <button class="add-to-cart-btn" data-product="clothing-shirt" 
                                 data-type="clothing" id="add-shirt-to-cart" disabled>
                             إضافة إلى السلة
@@ -250,13 +242,14 @@
                 </div>
             </div>
         </div>
+        -->
     </div>
 </section>
 
     <!-- Cart Section -->
     <section id="cart" class="cart-section">
         <div class="container">
-            <h2 class="section-title">سلة المشتريات</h2>
+            <h2 class="section-title"><i class="fas fa-shopping-cart"></i> سلة المشتريات</h2>
             <div id="cartItemsContainer">
                 <div class="empty-cart">
                     <div class="empty-cart-icon">🛒</div>
@@ -270,7 +263,7 @@
     <!-- Order Form Section -->
     <section id="order" class="order-form-section">
         <div class="container">
-            <h2 class="section-title">معلومات الطلب</h2>
+            <h2 class="section-title"><i class="fas fa-clipboard-list"></i> معلومات الطلب</h2>
             <form id="orderForm">
                 <div class="form-grid">
                     <div class="form-group">
@@ -294,13 +287,11 @@
                     <label class="form-label" for="notes">ملاحظات إضافية (اختياري)</label>
                     <textarea id="notes" placeholder="أي تفاصيل أو ملاحظات خاصة بالطلب..."></textarea>
                 </div>
-                <button type="submit" class="submit-order-btn">إرسال الطلب عبر واتساب</button>
+                <button type="submit" class="submit-order-btn"><i class="fab fa-whatsapp"></i> إرسال الطلب عبر واتساب</button>
             </form>
         </div>
     </section>
 
-    <!-- Footer -->
-<!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -309,7 +300,7 @@
                     <h3 class="footer-title">سوق عُكاظ</h3>
                     <p class="footer-description">
                         منتجات طبيعية وأصيلة بجودة عالية<br>
-                     نقدم أفضل المنتجات الطبيعية وأفخم الألبسة الشرعية  
+                     نقدم أفضل المنتجات الطبيعية  
                     </p>
                 </div>
 
@@ -357,6 +348,11 @@
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="back-to-top" aria-label="العودة للأعلى">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- JavaScript -->
     <script src="script.js"></script>

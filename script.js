@@ -6,6 +6,7 @@
 class OkazMarket {
     constructor() {
         this.cart = [];
+        this.cartIdCounter = 0;
         this.productPrices = this.initializePrices();
         this.productData = this.initializeProductData();
         this.colorPickerSystem = null;
@@ -147,27 +148,45 @@ class OkazMarket {
         this.initSmoothScroll();
         this.initOrderForm();
         
-        // ⭐ محدث: تهيئة نظام الألوان مع القائمة المنبثقة
+        // تهيئة نظام الألوان (فقط في حالة وجود قسم الألبسة)
         this.initColorPickerSystem();
         
         // تهيئة السلة من التخزين المحلي إذا كان هناك
         this.loadCartFromStorage();
+
+        // تهيئة زر العودة للأعلى
+        this.initBackToTop();
     }
 
-    // ⭐ جديد: تهيئة نظام الألوان مع القائمة المنبثقة
+    // تهيئة زر العودة للأعلى
+    initBackToTop() {
+        const btn = document.getElementById('backToTop');
+        if (!btn) return;
+
+        window.addEventListener('scroll', () => {
+            btn.classList.toggle('visible', window.scrollY > 400);
+        });
+
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // تهيئة نظام الألوان (قسم الألبسة)
     initColorPickerSystem() {
+        const shirtSection = document.getElementById('shirt-size-select');
+        if (!shirtSection) return;
+
         this.colorPickerSystem = new ColorPickerSystem(this);
         
-        // ربط الأحداث مع OkazMarket
         this.colorPickerSystem.onColorSelected = (colorData) => {
             this.updateSelectedColorForCart(colorData);
         };
         
-        // تهيئة المقاس الافتراضي
         this.initializeDefaultProduct();
     }
 
-    // ⭐ محدث: تهيئة المنتج الافتراضي
+    // تهيئة المنتج الافتراضي
     initializeDefaultProduct() {
         const shirtSizeSelect = document.getElementById('shirt-size-select');
         if (shirtSizeSelect && this.colorPickerSystem) {
@@ -218,7 +237,7 @@ class OkazMarket {
             input.addEventListener('input', () => this.handleQuantityChange(input));
         });
 
-        // ⭐ محدث: تحديث أسعار الملابس عند تغيير المقاس
+        // تحديث أسعار الملابس عند تغيير المقاس (إن وُجد)
         document.querySelectorAll('.clothing-size-select').forEach(select => {
             select.addEventListener('change', (e) => {
                 if (this.colorPickerSystem) {
@@ -238,9 +257,11 @@ class OkazMarket {
     handleImageErrors() {
         document.querySelectorAll('.product-real-image').forEach(img => {
             img.addEventListener('error', function() {
-                this.style.opacity = '0.5';
-                this.style.filter = 'grayscale(100%)';
-                console.warn(`فشل تحميل الصورة: ${this.src}`);
+                this.style.display = 'none';
+                const icon = document.createElement('div');
+                icon.innerHTML = '📦';
+                icon.style.cssText = 'font-size:4rem;opacity:0.3;display:flex;align-items:center;justify-content:center;width:100%;height:100%';
+                this.parentNode.appendChild(icon);
             });
         });
     }
@@ -346,7 +367,7 @@ class OkazMarket {
         }
 
         let cartItem = {
-            id: Date.now(),
+            id: ++this.cartIdCounter,
             productId,
             name: productName,
             quantity,
@@ -370,7 +391,6 @@ class OkazMarket {
                 quantityInput.value = 1;
             }
             
-            this.scrollToCart();
         } else {
             this.showToast('⚠️ حدث خطأ في إضافة المنتج');
         }
@@ -427,11 +447,13 @@ class OkazMarket {
 
         if (this.cart.length === 0) {
             cartContainer.innerHTML = this.getEmptyCartHTML();
+            this.updateNavTotal(0);
             return;
         }
 
         const { itemsHTML, total } = this.buildCartHTML();
         cartContainer.innerHTML = itemsHTML + this.getTotalHTML(total);
+        this.updateNavTotal(total);
     }
 
     // HTML للسلة الفارغة
@@ -565,18 +587,19 @@ class OkazMarket {
         });
     }
 
-    // التمرير للسلة
-    scrollToCart() {
-        setTimeout(() => {
-            const cartSection = document.getElementById('cart');
-            if (cartSection) {
-                cartSection.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start',
-                    inline: 'nearest'
-                });
-            }
-        }, 300);
+    // تحديث السعر الإجمالي في شريط التنقل
+    updateNavTotal(total) {
+        let navTotal = document.getElementById('cartTotalNav');
+        if (!navTotal) {
+            const cartLink = document.querySelector('a[href="#cart"]');
+            if (!cartLink) return;
+            navTotal = document.createElement('span');
+            navTotal.id = 'cartTotalNav';
+            navTotal.className = 'cart-total-nav';
+            cartLink.appendChild(navTotal);
+        }
+        navTotal.textContent = `${this.formatNumber(total)} دج`;
+        navTotal.style.display = total > 0 ? 'inline' : 'none';
     }
 
     // إصلاح تنسيق الأسعار
@@ -659,43 +682,73 @@ class OkazMarket {
             this.submitOrder();
         });
 
+        const inputs = orderForm.querySelectorAll('input[required], textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => {
+                this.validateSingleField(input);
+            });
+            input.addEventListener('input', () => {
+                this.clearFieldError(input);
+                if (input.value.trim().length > 0) {
+                    this.validateSingleField(input);
+                }
+            });
+        });
+
         const phoneInput = document.getElementById('phone');
         if (phoneInput) {
             phoneInput.addEventListener('input', (e) => {
                 e.target.value = e.target.value.replace(/[^0-9]/g, '');
             });
         }
-
-        const requiredInputs = orderForm.querySelectorAll('input[required]');
-        requiredInputs.forEach(input => {
-            input.addEventListener('blur', () => {
-                this.validateInput(input);
-            });
-        });
     }
 
-    // التحقق من صحة الإدخال
-    validateInput(input) {
+    // التحقق من حقل واحد
+    validateSingleField(input) {
+        const id = input.id;
         const value = input.value.trim();
-        if (!value && input.hasAttribute('required')) {
-            input.style.borderColor = '#dc2626';
-            input.nextElementSibling?.remove();
-            
+        let error = '';
+
+        if (!value) {
+            error = 'هذا الحقل مطلوب';
+        } else if (id === 'firstName' || id === 'lastName') {
+            if (value.length < 2) error = 'يجب أن يحتوي الاسم على حرفين على الأقل';
+            else if (/\d/.test(value)) error = 'الاسم يجب ألا يحتوي على أرقام';
+        } else if (id === 'phone') {
+            if (value.length < 10) error = 'رقم الهاتف يجب أن يكون 10 أرقام على الأقل';
+            else if (!/^0\d{9,}$/.test(value)) error = 'رقم الهاتف غير صحيح، ابدأ بـ 0';
+        } else if (id === 'address') {
+            if (value.length < 5) error = 'يرجى إدخال عنوان كامل (5 أحرف على الأقل)';
+        }
+
+        this.showFieldError(input, error);
+        return !error;
+    }
+
+    // عرض خطأ الحقل
+    showFieldError(input, message) {
+        const existing = input.parentNode.querySelector('.input-error');
+        existing?.remove();
+
+        input.classList.remove('input-valid');
+        input.classList.remove('input-invalid');
+
+        if (message) {
+            input.classList.add('input-invalid');
             const errorSpan = document.createElement('span');
             errorSpan.className = 'input-error';
-            errorSpan.textContent = 'هذا الحقل مطلوب';
-            errorSpan.style.color = '#dc2626';
-            errorSpan.style.fontSize = '0.85rem';
-            errorSpan.style.display = 'block';
-            errorSpan.style.marginTop = '5px';
-            
+            errorSpan.textContent = message;
             input.parentNode.appendChild(errorSpan);
-            return false;
         } else {
-            input.style.borderColor = '';
-            input.nextElementSibling?.remove();
-            return true;
+            input.classList.add('input-valid');
         }
+    }
+
+    // إزالة خطأ الحقل
+    clearFieldError(input) {
+        input.classList.remove('input-invalid');
+        input.classList.remove('input-valid');
+        input.parentNode.querySelector('.input-error')?.remove();
     }
 
     // إرسال الطلب
@@ -705,60 +758,77 @@ class OkazMarket {
             return;
         }
 
-        const formData = this.getFormData();
-        const isValid = this.validateForm(formData);
-        
-        if (!isValid) {
-            this.showToast('⚠️ الرجاء ملء جميع الحقول المطلوبة بشكل صحيح');
+        const fields = ['firstName', 'lastName', 'phone', 'address'];
+        let allValid = true;
+        fields.forEach(id => {
+            const input = document.getElementById(id);
+            if (input && !this.validateSingleField(input)) {
+                allValid = false;
+            }
+        });
+
+        if (!allValid) {
+            const firstError = document.querySelector('.input-invalid');
+            firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstError?.focus();
+            this.showToast('⚠️ الرجاء تعبئة جميع الحقول المطلوبة بشكل صحيح');
             return;
         }
 
+        const formData = this.getFormData();
         const message = this.buildWhatsAppMessage(formData);
+        const orderForm = document.getElementById('orderForm');
 
         const whatsappNumber = '213779724499';
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-        const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-        
-        if (newWindow) {
-            this.showToast('✅ تم فتح واتساب لإرسال الطلب');
-            
-            setTimeout(() => {
+        const submitBtn = document.querySelector('.submit-order-btn');
+        const originalText = submitBtn?.innerHTML;
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+        }
+
+        this.saveOrderHistory(formData);
+
+        setTimeout(() => {
+            const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+
+            if (newWindow) {
+                this.showToast('✅ تم فتح واتساب لإرسال الطلب');
+
                 this.cart = [];
                 this.updateCart();
                 this.saveCartToStorage();
-                orderForm.reset();
-            }, 1000);
-        } else {
-            this.showToast('⚠️ يرجى السماح بالنوافذ المنبثقة لإرسال الطلب');
-        }
+                orderForm?.reset();
+                document.querySelectorAll('.input-valid').forEach(el => el.classList.remove('input-valid'));
+            } else {
+                this.showToast('⚠️ يرجى السماح للنوافذ المنبثقة لإرسال الطلب');
+            }
+        }, 800);
     }
 
-    // التحقق من صحة النموذج
-    validateForm(formData) {
-        let isValid = true;
-        
-        if (!formData.firstName || formData.firstName.length < 2) {
-            document.getElementById('firstName').style.borderColor = '#dc2626';
-            isValid = false;
+    // حفظ الطلب في السجل المحلي
+    saveOrderHistory(formData) {
+        try {
+            const history = JSON.parse(localStorage.getItem('okaz-orders') || '[]');
+            history.push({
+                date: new Date().toISOString(),
+                customer: `${formData.firstName} ${formData.lastName}`,
+                phone: formData.phone,
+                items: this.cart.length,
+                total: this.cart.reduce((sum, item) => sum + item.totalPrice, 0)
+            });
+            if (history.length > 50) history.shift();
+            localStorage.setItem('okaz-orders', JSON.stringify(history));
+        } catch (e) {
+            // silent
         }
-        
-        if (!formData.lastName || formData.lastName.length < 2) {
-            document.getElementById('lastName').style.borderColor = '#dc2626';
-            isValid = false;
-        }
-        
-        if (!formData.phone || formData.phone.length < 8) {
-            document.getElementById('phone').style.borderColor = '#dc2626';
-            isValid = false;
-        }
-        
-        if (!formData.address || formData.address.length < 5) {
-            document.getElementById('address').style.borderColor = '#dc2626';
-            isValid = false;
-        }
-        
-        return isValid;
     }
 
     // الحصول على بيانات النموذج
@@ -819,25 +889,6 @@ class OkazMarket {
         return div.innerHTML;
     }
 
-    // وظائف مساعدة
-    formatCurrency(amount) {
-        return new Intl.NumberFormat('ar-SA', {
-            style: 'currency',
-            currency: 'DZD',
-            minimumFractionDigits: 0
-        }).format(amount);
-    }
-
-    // تحديث جميع الأسعار
-    updateAllPrices() {
-        document.querySelectorAll('.size-select').forEach(select => {
-            this.updateSimpleProductPrice(select);
-        });
-        
-        document.querySelectorAll('.clothing-size-select').forEach(select => {
-            this.updateClothingProductPrice(select);
-        });
-    }
 }
 
 // ===================================
