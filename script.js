@@ -779,7 +779,7 @@ class OkazMarket {
         const message = this.buildWhatsAppMessage(formData);
         const orderForm = document.getElementById('orderForm');
 
-        const whatsappNumber = '213779724499';
+        const whatsappNumber = '213774650563';
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
         const submitBtn = document.querySelector('.submit-order-btn');
