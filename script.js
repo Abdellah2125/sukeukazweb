@@ -682,7 +682,7 @@ class OkazMarket {
             this.submitOrder();
         });
 
-        const inputs = orderForm.querySelectorAll('input[required], textarea');
+        const inputs = orderForm.querySelectorAll('input[required], textarea[required]');
         inputs.forEach(input => {
             input.addEventListener('blur', () => {
                 this.validateSingleField(input);
